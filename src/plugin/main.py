@@ -1,4 +1,7 @@
-from spaceone.identity.plugin.external_auth.lib.server import ExternalAuthPluginServer
+from spaceone.identity.plugin.external_auth.lib.server import \
+    ExternalAuthPluginServer
+
+from plugin.manager.external_auth_manager import ExternalAuthManager
 
 app = ExternalAuthPluginServer()
 
@@ -18,7 +21,12 @@ def external_auth_init(params: dict) -> dict:
             'metadata': 'dict'
         }
     """
-    pass
+    options = params["options"]
+
+    external_auth_manager: ExternalAuthManager = ExternalAuthManager()
+    metadata = external_auth_manager.init(options)
+
+    return {"metadata": metadata}
 
 
 @app.route("ExternalAuth.authorize")
@@ -32,6 +40,7 @@ def external_auth_authorize(params: dict) -> dict:
             'secret_data': 'dict',      # Required
             'credentials': 'dict',      # Required
             'domain_id': 'str'          # Required
+            'metadata': 'dict'
         }
 
     Returns:
@@ -44,4 +53,6 @@ def external_auth_authorize(params: dict) -> dict:
             'group': 'str',
         }
     """
-    pass
+    external_auth_manager = ExternalAuthManager()
+
+    return external_auth_manager.authorize(params)
