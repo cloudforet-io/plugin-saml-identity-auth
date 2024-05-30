@@ -1,3 +1,4 @@
 spaceone-api
+pre-commit
 python3-saml
 requests

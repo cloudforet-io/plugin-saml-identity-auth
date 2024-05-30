@@ -1,5 +1,6 @@
 import logging
 import xml.etree.ElementTree as ET
+from typing import Tuple
 
 import requests
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
@@ -150,7 +151,7 @@ class SamlConnector(BaseConnector):
             raise ERROR_NOT_FOUND(message=f"ERROR_NOT_FOUND: {e}")
 
     @staticmethod
-    def _parse_xml(xml_data: bytes) -> tuple[str, str, str]:
+    def _parse_xml(xml_data: bytes) -> Tuple[str, str, str]:
         """Parses the XML data to extract entity ID, x509 certificate, and SSO URL.
 
         Args:
