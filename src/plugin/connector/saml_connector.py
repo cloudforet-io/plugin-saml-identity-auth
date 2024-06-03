@@ -24,6 +24,7 @@ class SamlConnector(BaseConnector):
               'identity_provider': 'str',
               'icon': 'str',
               'metadata_url': 'str',
+              'sp_metadata_url': 'str',
 
         Returns:
             'metadata': 'dict'
@@ -49,12 +50,15 @@ class SamlConnector(BaseConnector):
 
         return metadata
 
-    def authorize(self, params: dict, metadata_url: str, domain_id: str) -> dict:
+    def authorize(
+        self, params: dict, metadata_url: str, sp_metadata_url: str, domain_id: str
+    ) -> dict:
         """Authorizes the user using SAML.
 
         Args:
             'params': 'dict',
             'metadata_url': 'str',
+            'sp_metadata_url': 'str',
             'domain_id': 'str',
 
         Returns:
@@ -63,7 +67,7 @@ class SamlConnector(BaseConnector):
         Raises:
             ERROR_AUTHENTICATE_FAILURE: If authentication fails
         """
-        self._set_saml_settings(metadata_url, domain_id)
+        self._set_saml_settings(metadata_url, sp_metadata_url, domain_id)
 
         auth = OneLogin_Saml2_Auth(
             params,
@@ -98,11 +102,17 @@ class SamlConnector(BaseConnector):
 
         return user_info
 
-    def _set_saml_settings(self, metadata_url: str, domain_id: str) -> None:
+    def _set_saml_settings(
+        self,
+        metadata_url: str,
+        sp_metadata_url: str,
+        domain_id: str,
+    ) -> None:
         """Sets the SAML settings using the metadata URL and domain ID.
 
         Args:
             'metadata_url': 'str',
+            'sp_metadata_url': 'str',
             'domain_id': 'str',
         """
         xml_data = self._fetch_xml(metadata_url)
