@@ -1,5 +1,4 @@
-from spaceone.identity.plugin.external_auth.lib.server import \
-    ExternalAuthPluginServer
+from spaceone.identity.plugin.external_auth.lib.server import ExternalAuthPluginServer
 
 from plugin.manager.external_auth_manager import ExternalAuthManager
 
