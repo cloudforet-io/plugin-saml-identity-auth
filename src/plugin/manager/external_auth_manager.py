@@ -43,10 +43,7 @@ class ExternalAuthManager(BaseManager):
         """
         credentials = params["credentials"]
         metadata_url = params["options"].get("metadata_url")
-        sp_metadata_url = params["options"].get("sp_metadata_url")
         domain_id = params["domain_id"]
-        user_info = self.saml_connector.authorize(
-            credentials, metadata_url, sp_metadata_url, domain_id
-        )
+        user_info = self.saml_connector.authorize(credentials, metadata_url, domain_id)
 
         return user_info
