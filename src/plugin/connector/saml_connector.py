@@ -24,7 +24,6 @@ class SamlConnector(BaseConnector):
               'identity_provider': 'str',
               'icon': 'str',
               'metadata_url': 'str',
-              'sp_metadata_url': 'str',
 
         Returns:
             'metadata': 'dict'
@@ -56,7 +55,6 @@ class SamlConnector(BaseConnector):
         Args:
             'params': 'dict',
             'metadata_url': 'str',
-            'sp_metadata_url': 'str',
             'domain_id': 'str',
 
         Returns:
@@ -126,7 +124,7 @@ class SamlConnector(BaseConnector):
         entity_id, idp_x509_certificate, sso_url = self._parse_idp_xml(idp_xml_data)
 
         http_host = params.get("http_host")
-        acs_url = f"{http_host}/console-api/extension/auth/saml/{domain_id}"
+        acs_url = f"https://{http_host}/console-api/extension/auth/saml/{domain_id}"
 
         self.saml_settings = {
             "strict": True,
