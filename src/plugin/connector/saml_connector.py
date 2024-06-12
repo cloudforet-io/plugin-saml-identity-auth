@@ -219,4 +219,4 @@ class SamlConnector(BaseConnector):
         }
         idp_name = idp_name.get(identity_provider, identity_provider.capitalize())
 
-        return f"Sign In with {idp_name}"
+        return idp_name
