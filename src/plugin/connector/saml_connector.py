@@ -144,6 +144,11 @@ class SamlConnector(BaseConnector):
                 },
                 # "x509cert": sp_x509_certificate,
             },
+            "security": {
+                "wantAssertionsSigned": True,
+                "wantNameId": True,
+                "wantAttributeStatement": False,
+            },
         }
 
     @staticmethod
