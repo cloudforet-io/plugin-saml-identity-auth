@@ -94,16 +94,11 @@ class SamlConnector(BaseConnector):
             'user_info': 'dict'
                 'user_id': 'str'
         """
-        user_info = {}
 
         try:
             name_id = auth.get_nameid()
-            attributes = auth.get_attributes()
 
-            user_info = {
-                "user_id": name_id,
-                "attributes": attributes if attributes else {},
-            }
+            user_info = {"user_id": name_id}
 
             return user_info
         except Exception as e:
