@@ -98,8 +98,12 @@ class SamlConnector(BaseConnector):
 
         try:
             name_id = auth.get_nameid()
+            attributes = auth.get_attributes()
 
-            user_info = {"user_id": name_id}
+            user_info = {
+                "user_id": name_id,
+                "attributes": attributes if attributes else {},
+            }
 
             return user_info
         except Exception as e:
@@ -219,4 +223,4 @@ class SamlConnector(BaseConnector):
         }
         idp_name = idp_name.get(identity_provider, identity_provider.capitalize())
 
-        return idp_name
+        return f"Sign In with {idp_name}"
